@@ -1,7 +1,8 @@
 import React, { useEffect } from  "react"
-import styled, { StyledFunction } from "styled-components";
+import styled from "styled-components";
 import { useKeyPress } from "../core/custom_hooks/useKeyPress";
-import * as AudioLogic from "../processor/audio_logic";
+import { useMultiKeyPress } from "../core/custom_hooks/useMultiKeyPress"
+import * as AudioLogic from "../audio_logic/audio_logic";
 
 
 interface KeyProps {
@@ -21,18 +22,36 @@ const Key = styled.button<KeyProps>`
   display: flex;
   margin: auto;
 `
+interface LabelProps {
+  bold?: boolean
+}
+
+const Label = styled.h3<LabelProps>`
+  font-weight: ${props => props.bold ? "normal" : "bold"}
+`
 
 export const Piano: React.FC = (props: any) => {
   // const [audioContext, setAudioContext] = useState<AudioContext>(
   //   new AudioContext()
   // );
-  const cNote: boolean = useKeyPress("c");
+  const cPress: boolean = useKeyPress("c");
+  const aPress: boolean = useKeyPress("a");
+  const keysPressed = useMultiKeyPress();
 
   useEffect(() => {
     const audioCtx: AudioContext = new AudioContext();
 
+    if (audioCtx.audioWorklet === undefined) { 
+      console.log("audio worklet is not supported");
+      return;
+    }
+
     const startAudioMod = async () => {
-      await AudioLogic.startAudioModule(audioCtx);
+      try {
+        await AudioLogic.startAudioModule(audioCtx);
+      } catch (err) {
+        console.log("startMod: " + err)
+      }    
     }
 
     startAudioMod();
@@ -44,17 +63,27 @@ export const Piano: React.FC = (props: any) => {
     }
   }, [])
 
+  // trigger wasm stuff when key pressed
+  useEffect(() => {
+    console.log("trigger something");
+  }, [cPress, aPress])
 
-  const onKeyPress = async () => {
 
+  const onButtonClick = async () => {
+    console.log("pressing c: " + cPress);
   }
 
   return (
     <>
       <h1>sup {AudioLogic.add(1, 2)}</h1>
-      <Key white onClick={onKeyPress}>
-        C
-      </Key>
+      <div style={{ display: "flex"}}>
+        <Key white onClick={onButtonClick}>
+         <h3 style={{color: cPress ? "black" : "white"}}>C</h3> 
+        </Key>
+        <Key white onClick={onButtonClick}>
+          <h3 style={{color: aPress ? "black" : "white"}}>A</h3> 
+        </Key>
+      </div>
     </>
   );
 }
