@@ -120,5 +120,6 @@ checksum = "72b6c0220ded549d63860c78c38f3bcc558d1ca3f4efa74942c536ddbbb55e87"
 name = "wasm_synth"
 version = "0.1.0"
 dependencies = [
+ "lazy_static",
  "wasm-bindgen",
 ]
