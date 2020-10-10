@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from  "react"
 import styled, { StyledFunction } from "styled-components";
+import { useKeyPress } from "../core/custom_hooks/useKeyPress";
 import * as AudioLogic from "../processor/audio_logic";
 
 
@@ -25,6 +26,7 @@ export const Piano: React.FC = (props: any) => {
   // const [audioContext, setAudioContext] = useState<AudioContext>(
   //   new AudioContext()
   // );
+  const cNote: boolean = useKeyPress("c");
 
   useEffect(() => {
     const audioCtx: AudioContext = new AudioContext();

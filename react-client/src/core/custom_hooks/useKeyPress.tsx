@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 /* useKeyPress takes the key to monitor as a string
     and keeps track of it being pressed
@@ -11,14 +11,14 @@ export const useKeyPress = (targetKey: string) => {
 
   // Key being pressed down
   const downHandler = ({ key }: { key: string }) => {
-    if (key === targetKey) {
+    if (key === targetKey.toLowerCase()) {
       setKeyPressed(true);
     }
   }
 
     // Key being pressed up
   const upHandler = ({ key }: { key: string }) => {
-    if (key === targetKey) {
+    if (key === targetKey.toLowerCase()) {
       setKeyPressed(false);
     }
   }
