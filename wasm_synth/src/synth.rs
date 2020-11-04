@@ -26,6 +26,10 @@ impl Synth {
     }
   }
 
+  pub fn start(&mut self) {
+    self.synth_time = 0;
+  }
+
   pub fn process(&mut self, out_ptr: *mut f32, size: usize) {
     let wave_buffer = self.generate_wave_buffer(size);
     // TODO: more filters

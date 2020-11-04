@@ -1,7 +1,7 @@
-import React, { useEffect } from  "react"
+import React, { useEffect, useState } from  "react"
 import styled from "styled-components";
 import { useKeyPress } from "../core/custom_hooks/useKeyPress";
-import { useMultiKeyPress } from "../core/custom_hooks/useMultiKeyPress"
+// import { useMultiKeyPress } from "../core/custom_hooks/useMultiKeyPress"
 import * as AudioLogic from "../audio_logic/audio_logic";
 
 
@@ -22,13 +22,13 @@ const Key = styled.button<KeyProps>`
   display: flex;
   margin: auto;
 `
-interface LabelProps {
-  bold?: boolean
-}
+// interface LabelProps {
+//   bold?: boolean
+// }
 
-const Label = styled.h3<LabelProps>`
-  font-weight: ${props => props.bold ? "normal" : "bold"}
-`
+// const Label = styled.h3<LabelProps>`
+//   font-weight: ${props => props.bold ? "normal" : "bold"}
+// `
 
 export const Piano: React.FC = (props: any) => {
   // const [audioContext, setAudioContext] = useState<AudioContext>(
@@ -36,7 +36,9 @@ export const Piano: React.FC = (props: any) => {
   // );
   const cPress: boolean = useKeyPress("c");
   const aPress: boolean = useKeyPress("a");
-  const keysPressed = useMultiKeyPress();
+  // const keysPressed = useMultiKeyPress();
+  const [workletNode, setWorkletNode] = useState<AudioWorkletNode>();
+  // console.log(workletNode);
 
   useEffect(() => {
     const audioCtx: AudioContext = new AudioContext();
@@ -48,9 +50,9 @@ export const Piano: React.FC = (props: any) => {
 
     const startAudioMod = async () => {
       try {
-        await AudioLogic.startAudioModule(audioCtx);
+        setWorkletNode(await AudioLogic.startAudioModule(audioCtx));
       } catch (err) {
-        console.log("startMod: " + err)
+        console.log("[startAudioMod] " + err)
       }    
     }
 
@@ -66,6 +68,12 @@ export const Piano: React.FC = (props: any) => {
   // trigger wasm stuff when key pressed
   useEffect(() => {
     console.log("trigger something");
+    // workletNode.use
+    AudioLogic.onKeyPress("c")
+    if (cPress) {
+
+    }
+
   }, [cPress, aPress])
 
 

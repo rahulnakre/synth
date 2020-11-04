@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src", "public/wasm_build", "types/decs.d.ts", "types/types.d.ts"
   ]
 }

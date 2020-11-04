@@ -9,22 +9,21 @@ import { useEffect, useState } from "react";
 export const useKeyPress = (targetKey: string) => {
   const [keyPressed, setKeyPressed] = useState<boolean>(false);
 
-  // Key being pressed down
-  const downHandler = ({ key }: { key: string }) => {
-    if (key === targetKey.toLowerCase()) {
-      setKeyPressed(true);
-    }
-  }
-
-    // Key being pressed up
-  const upHandler = ({ key }: { key: string }) => {
-    if (key === targetKey.toLowerCase()) {
-      setKeyPressed(false);
-    }
-  }
-
   // event listener
   useEffect(() => {
+     // Key being pressed down
+    const downHandler = ({ key }: { key: string }) => {
+      if (key === targetKey.toLowerCase()) {
+        setKeyPressed(true);
+      }
+    }
+
+    // Key being pressed up
+    const upHandler = ({ key }: { key: string }) => {
+      if (key === targetKey.toLowerCase()) {
+        setKeyPressed(false);
+      }
+    }
     window.addEventListener("keydown", downHandler);
     window.addEventListener("keyup", upHandler);
 
@@ -32,7 +31,7 @@ export const useKeyPress = (targetKey: string) => {
       window.removeEventListener("keydown", downHandler);
       window.removeEventListener("keyup", upHandler);
     }
-  }, []);
+  }, [targetKey]);
 
   return keyPressed;
 }

@@ -1,4 +1,4 @@
-const ctx = new AudioContext()
+// import init from "./wasm_build/wasm_synth.js";
 let node;
 
 // if (audioCtx.audioWorklet === undefined) { 
@@ -12,19 +12,35 @@ export const startAudioModule = async (audioCtx) => {
 
 
   node = new AudioWorkletNode(audioCtx, "processor");
+  var wasmArrBuf;
 
-  var res = await fetch("../../wasm_build/wasm_synth_bg.wasm") 
-  const wasmArrbuf = await res.arrayBuffer();
+  try {
+    var res = await fetch("wasm_build/wasm_synth_bg.wasm") 
+  } catch (err) {
+    console.log(err);
+  }
 
+  try {
+    wasmArrBuf = await res.arrayBuffer();
+  } catch (err) {
+    console.log(err);
+  }
+  
+  var d = new TextDecoder().decode(wasmArrBuf);
+  
   // send over our wasm
-  await node.port.postMessage({ type: "loadWasm", data: wasmArrbuf });
+  node.port.postMessage({ type: "loadWasm", data: wasmArrBuf });
 
+
+  onKeyPress("c")
+
+  return node;
 }
 
 export const add = (x, y) => {
   return x + y;
 }
 
-export const onKeyPress = (key) => {
-  node.port.postMessage({ type: "trigger" })
-}
+export const onKeyPress = (key) => (
+  node?.port?.postMessage({ type: "trigger" })
+)
