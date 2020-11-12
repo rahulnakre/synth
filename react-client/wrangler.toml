@@ -1,0 +1,10 @@
+name = "react-client"
+type = "webpack"
+account_id = "77aa38e0594ec3f3a41710186f6a7126"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = "./build"
+entry-point = "workers-site"

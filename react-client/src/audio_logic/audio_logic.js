@@ -41,6 +41,6 @@ export const add = (x, y) => {
   return x + y;
 }
 
-export const onKeyPress = (key) => (
+export const onKeyPress = (midiNumber) => (
   node?.port?.postMessage({ type: "trigger" })
 )
