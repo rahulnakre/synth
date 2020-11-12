@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './App.css';
+import AudioCanvas from './audio_tracks/pages/AudioCanvas';
 // import { Piano } from './piano/Piano';
 import ResponsivePiano from './piano/ResponsivePiano';
 
@@ -14,6 +15,7 @@ function App() {
   
   return (
     <div>
+      <AudioCanvas />
       <PianoContainer>
         <ResponsivePiano />
       </PianoContainer>
