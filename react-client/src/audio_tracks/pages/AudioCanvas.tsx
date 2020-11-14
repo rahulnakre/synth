@@ -10,9 +10,9 @@ type AudioCanvasProps = {
 const AudioCanvas:FC<AudioCanvasProps> = (props) => {
   return (
     <Base>
-      <DroppableAudioArea>
-        <DraggableAudio />
-      </DroppableAudioArea>
+      {/* <DroppableAudioArea> */}
+        {/* <DraggableAudio /> */}
+      {/* </DroppableAudioArea> */}
     </Base>
   );
 }
