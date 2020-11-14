@@ -48,15 +48,15 @@ const AudioList = styled.div`
  */
 const DroppableAudioArea:FC<DroppableAudioAreaProps> = (props) => {
   return (
-    // <Container>
-    //   <Title>List</Title>
+    <Container>
+      <Title>List</Title>
       <Droppable 
         droppableId={props.key} 
         type="audioDroppable"
         // direction="horizontal"
       >
         {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-          <div
+          <AudioList
             ref={provided.innerRef}
             // style={getListStyle(snapshot.isDraggingOver)}
             {...provided.droppableProps}
@@ -67,10 +67,10 @@ const DroppableAudioArea:FC<DroppableAudioAreaProps> = (props) => {
                 // </AudioList>
               ))}
             {provided.placeholder}
-          </div>
+          </AudioList>
         )}
       </Droppable>
-    // </Container>
+    </Container>
   );
 }
 

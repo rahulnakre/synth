@@ -18,20 +18,8 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
+  background-color: white;
 `;
-
-const getItemStyle = (
-  isDragging: boolean,
-  draggableStyle: DraggingStyle | NotDraggingStyle | undefined
- ) => ({
-  // @ts-ignore
-  // userSelect: "none",
-  padding: 16,
-  margin: "0 0 8px 0",
-  background: isDragging ? "lightgreen" : "grey",
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
 
 /**
  * The draggable waveform/midi that will live inside DroppableAudioArea's
@@ -46,9 +34,9 @@ const DraggableAudio:FC<DraggableAudioProps> = (props) => {
         index={props.index}
       >
         {(provided, snapshot) => (
-          <Container>
+          // <Container>
 
-          <div
+          <Container
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -58,8 +46,8 @@ const DraggableAudio:FC<DraggableAudioProps> = (props) => {
             // )}
           >
             <h4>{props.task.content}</h4>
-          </div>
           </Container>
+                  // </Container>
 
         )}
 
